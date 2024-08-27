@@ -1,6 +1,6 @@
 import ProductList from "./(ui)/components/ProductList";
 
-function Home() {
+function Page() {
   return (<>
     <div className="text-white bg-white">
       <ProductList />
@@ -9,4 +9,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Page;
