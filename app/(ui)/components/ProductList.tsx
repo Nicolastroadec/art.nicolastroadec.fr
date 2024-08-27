@@ -3,16 +3,12 @@ import Product from '@models/Product';
 import ProductCard from './ProductCard';
 export default async function ProductList() {
 
-    let products = await getProducts();
-
-    if (!Array.isArray(products)) {
-        products = [];
-    }
+    let products: Product[] = await getProducts();
 
     return (
         <div className="flex flex-wrap">
             {
-                products.map((product: Product) => (
+                products.map((product) => (
                     <ProductCard key={product.product_id} product={product} />
                 ))
             }

@@ -5,6 +5,7 @@ import ProductUI from '@components/productUI';
 export default async function page({ params }: { params: { slug: string } }) {
     const slug = params.slug;
     const productData: Product = await getProduct(slug);
+
     const { name, image_url } = productData;
 
     return (
