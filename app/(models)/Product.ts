@@ -9,4 +9,5 @@ export default interface Product {
     technic: string,
     image_url: string,
     status: string,
+    slug: string,
 }

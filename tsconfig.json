@@ -27,9 +27,24 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@app/*": [
+        "./app/*"
+      ],
+      "@components/*": [
+        "./app/(ui)/components/*"
+      ],
+      "@lib/*": [
+        "./app/(lib)/*"
+      ],
+      "@models/*": [
+        "./app/(models)/*"
+      ],
+      "@routes/*": [
+        "./app/(routes)/*"
+      ],
+      "@api/*": [
+        "app/api/*"
+      ],
     }
   },
   "include": [

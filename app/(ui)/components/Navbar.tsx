@@ -1,14 +1,22 @@
+'use-client';
+
 import Link from 'next/link';
+import CartIcon from '@components/CartIcon';
 export default function NavBar() {
-    const links = [
+    interface Links {
+        name: string;
+        url: string;
+    }
+
+    const links: Links[] = [
         {
-            name: "Originaux",
+            name: "Accueil",
             url: '/',
         },
-        {
-            name: 'Impressions',
-            url: '/impressions',
-        },
+        /*   {
+              name: 'Impressions',
+              url: '/impressions',
+          }, */
         {
             name: 'A propos',
             url: '/a-propos',
@@ -20,15 +28,15 @@ export default function NavBar() {
         {
             name: 'Panier',
             url: '/panier',
-            icon: '/img/cart-icon.png',
         }
     ]
 
-    return (<div className="flex justify-around pt-5 pb-5 fixed w-full top-0 bg-white z-20 shadow-md">
-        {links.map(link => {
+    return (<div className="w-full flex justify-center pt-5 pb-5 fixed top-0 bg-white z-20 shadow-md">
+        <div className="w-1/2 flex justify-around"> {links.map(link => {
             return (<Link className="text-black" href={link.url} key={link.name}>{link.name !== "Panier" ? link.name : ''}
-                <img className="w-[20px]" src={link.icon} />
+                {link.name === 'Panier' && <CartIcon />}
             </Link>)
-        })}
+        })}</div>
+
     </div>)
 }

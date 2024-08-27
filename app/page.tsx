@@ -1,5 +1,4 @@
 import ProductList from "./(ui)/components/ProductList";
-import Navbar from "./(ui)/components/Navbar";
 
 function Home() {
   return (<>
