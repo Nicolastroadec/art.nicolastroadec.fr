@@ -1,10 +1,8 @@
-import { db } from '@vercel/postgres';
+import { sql } from '@vercel/postgres';
 import Product from '@models/Product';
 export default async function getProducts(): Promise<Product[]> {
     try {
-        const client = await db.connect();
-        const result = await client.sql`SELECT * FROM products`;
-        client.release();
+        const result = await sql`SELECT * FROM products`;
         const products = result.rows as Product[];
 
         const productsMapped: Product[] = products.map(product => {
@@ -30,7 +28,7 @@ export default async function getProducts(): Promise<Product[]> {
 
 export async function getProduct(slug: string): Promise<Product> {
     try {
-        const client = await db.connect();
+        const client = await sql.connect();
         const result = await client.sql`SELECT * FROM products WHERE slug = ${slug}`;
         client.release();
         const product = result.rows[0] as Product;
