@@ -5,7 +5,7 @@ export default async function getProducts(): Promise<Product[]> {
         const client = await db.connect();
         const result = await client.sql`SELECT * FROM products`;
         client.release();
-        const products = result.rows;
+        const products = result.rows as Product[];
 
         const productsMapped: Product[] = products.map(product => {
             return {
