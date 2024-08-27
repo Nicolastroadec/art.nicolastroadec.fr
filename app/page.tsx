@@ -1,4 +1,4 @@
-import ProductList from "./(ui)/components/ProductList";
+import ProductList from "@components/ProductList";
 
 function Page() {
   return (<>

@@ -7,7 +7,7 @@ export default async function ProductList() {
 
     return (
         <div className="flex flex-wrap">
-            {
+            <pre>{JSON.stringify(products, null, 2)}</pre>            {
                 products.map((product: Product) => (
                     <ProductCard key={product.product_id} product={product} />
                 ))
