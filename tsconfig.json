@@ -45,6 +45,9 @@
       "@api/*": [
         "./app/api/*"
       ],
+      "@context/*": [
+        "./app/(context)/*"
+      ],
     }
   },
   "include": [
