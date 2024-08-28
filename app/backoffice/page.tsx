@@ -1,9 +1,6 @@
 "use client";
 
-import fs from 'fs';
-import path from 'path';
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
-import Image from 'next/image';
 import Product from '@models/Product';
 
 export default function page() {
@@ -34,7 +31,7 @@ export default function page() {
             ))}
             <h2>Ajouter une oeuvre</h2>
             <form className="flex flex-col" action="">
-                <label htmlFor="name">Nom de l'oeuvre</label>
+                <label htmlFor="name">Nom de l{"'"}oeuvre</label>
                 <input className="border-2 border-solid border-black" type="text" id="name" name="name" />
                 <label htmlFor="type">Type d'oeuvre</label>
                 <input className="border-2 border-solid border-black" type="text" id="type" name="type" />

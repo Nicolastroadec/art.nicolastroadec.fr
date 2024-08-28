@@ -34,6 +34,10 @@ export default function NavBar() {
         {
             name: 'Panier',
             url: '/panier',
+        },
+        {
+            name: 'Login',
+            url: '/login',
         }
     ]
 
