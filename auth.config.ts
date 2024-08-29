@@ -5,13 +5,13 @@ export const authConfig = {
         signIn: '/login',
     },
     callbacks: {
-        authorized({auth, request: { nextUrl}}) {
+        authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             const isOnBackoffice = nextUrl.pathname.startsWith('/backoffice');
             if (isOnBackoffice) {
                 return isLoggedIn;
             } else if (isLoggedIn) {
-                return Response.redirect(new URL('/dashboard', nextUrl));
+                return Response.redirect(new URL('/backoffice', nextUrl));
             }
             return true;
         },

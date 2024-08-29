@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import Product from '@models/Product';
