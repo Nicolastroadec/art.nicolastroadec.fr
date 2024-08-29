@@ -2,7 +2,7 @@
 
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import Product from '@models/Product';
-
+import SignOut from '@components/SignOut';
 export default function page() {
     const artItems: Array<Product> = [];
 
@@ -57,6 +57,8 @@ export default function page() {
                     );
                 }}
             </CldUploadWidget>
+
+
         </div>
     );
 }
