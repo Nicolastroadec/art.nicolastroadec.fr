@@ -11,6 +11,7 @@ export const authConfig = {
             if (isOnBackoffice) {
                 return isLoggedIn;
             } else if (isLoggedIn) {
+                console.log('LOGGED IN');
                 return Response.redirect(new URL('/backoffice', nextUrl));
             }
             return true;
