@@ -1,6 +1,6 @@
 'use client';
 
-// import { CldImage, CldUploadWidget } from 'next-cloudinary';
+import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import Product from '@models/Product';
 
 export default function page() {
@@ -12,7 +12,7 @@ export default function page() {
             {artItems.map(art => (
                 <div key={art.product_id}>
                     <h2>{art.name}</h2>
-                    {/*     <CldImage
+                    <CldImage
                         alt="sample image"
                         src="cld-sample-5" // Use this sample image or upload your own via the Media Explorer
                         width="500" // Transform the image: auto-crop to square aspect_ratio
@@ -21,7 +21,8 @@ export default function page() {
                             type: 'auto',
                             source: true
                         }}
-                    />    */}                 <button>Modifier</button>
+                    />
+                    <button>Modifier</button>
                     <button>Supprimer</button>
                     <select name="Changer le statut" id="">
                         <option value="available" id="available">Disponible</option>
@@ -47,7 +48,7 @@ export default function page() {
                 <input className="border-2 border-solid border-black" type="text" id="image_url" name="image_url" />
                 <button type="submit">Ajouter</button>
             </form>
-            {/*      <CldUploadWidget uploadPreset="ml_default">
+            <CldUploadWidget uploadPreset="ml_default">
                 {({ open }) => {
                     return (
                         <button onClick={() => open()}>
@@ -55,7 +56,7 @@ export default function page() {
                         </button>
                     );
                 }}
-            </CldUploadWidget> */}
+            </CldUploadWidget>
         </div>
     );
 }

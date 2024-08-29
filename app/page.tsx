@@ -1,6 +1,5 @@
 import ProductList from "@components/ProductList";
-
-function Page() {
+async function Page() {
   return (<>
     <div className="text-white bg-white">
       <ProductList />
