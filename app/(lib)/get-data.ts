@@ -12,7 +12,7 @@ export default async function getProducts(): Promise<Product[]> {
             return {
                 product_id: product.product_id,
                 type: product.type,
-                name: product.type,
+                name: product.name,
                 prix: product.prix,
                 dimensions: product.dimensions,
                 support: product.support,

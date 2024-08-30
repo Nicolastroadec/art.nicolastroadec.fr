@@ -1,65 +1,56 @@
-'use client';
-
-import { CldImage, CldUploadWidget } from 'next-cloudinary';
+import AddAProduct from '@components/backoffice/AddAProduct';
 import Product from '@models/Product';
-import SignOut from '@components/SignOut';
-export default function page() {
-    const artItems: Array<Product> = [];
+import getProducts from '@lib/get-data';
 
+export default async function page() {
+    let artItems: Product[] = [];
+    let artItemsCopy: Product[] = [];
+    try {
+        artItems = await getProducts();
+        artItemsCopy = artItems.map(art => ({ ...art }));
+    } catch (err) {
+        console.error("Erreur lors de la récupération des données : ", err);
+    }
     return (
         <div>
             <h1>Les oeuvres présentes sur le site</h1>
-            {artItems.map(art => (
-                <div key={art.product_id}>
-                    <h2>{art.name}</h2>
-                    <CldImage
-                        alt="sample image"
-                        src="cld-sample-5" // Use this sample image or upload your own via the Media Explorer
-                        width="500" // Transform the image: auto-crop to square aspect_ratio
-                        height="500"
-                        crop={{
-                            type: 'auto',
-                            source: true
-                        }}
-                    />
-                    <button>Modifier</button>
-                    <button>Supprimer</button>
-                    <select name="Changer le statut" id="">
-                        <option value="available" id="available">Disponible</option>
-                        <option value="sold" id="sold">Vendue</option>
-                    </select>
-                </div>
-            ))}
-            <h2>Ajouter une oeuvre</h2>
-            <form className="flex flex-col" action="">
-                <label htmlFor="name">Nom de l{"'"}oeuvre</label>
-                <input className="border-2 border-solid border-black" type="text" id="name" name="name" />
-                <label htmlFor="type">Type d'oeuvre</label>
-                <input className="border-2 border-solid border-black" type="text" id="type" name="type" />
-                <label htmlFor="prix">Prix</label>
-                <input className="border-2 border-solid border-black" type="number" id="prix" name="prix" />
-                <label htmlFor="dimensions">Dimensions</label>
-                <input className="border-2 border-solid border-black" type="text" id="dimensions" name="dimensions" />
-                <label htmlFor="support">Support</label>
-                <input className="border-2 border-solid border-black" type="text" id="support" name="support" />
-                <label htmlFor="technic">Technique</label>
-                <input className="border-2 border-solid border-black" type="text" id="technic" name="technic" />
-                <label htmlFor="image_url">Url de l'image</label>
-                <input className="border-2 border-solid border-black" type="text" id="image_url" name="image_url" />
-                <button type="submit">Ajouter</button>
-            </form>
-            <CldUploadWidget uploadPreset="ml_default">
-                {({ open }) => {
-                    return (
-                        <button onClick={() => open()}>
-                            Upload an Image
-                        </button>
-                    );
-                }}
-            </CldUploadWidget>
+            <table>
+                <thead>
+                    <tr>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">ID du produit</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Type</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Nom de l'oeuvre</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Prix</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Dimensions</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Support</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Technique</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">URL de l'image</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Statut</th>
+                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Slug</th>
+                    </tr>
+                </thead>
 
 
-        </div>
+                <tbody>
+                    {artItemsCopy.map(art => (
+                        <tr key={art.product_id}>
+                            <th className="border-solid border-black border-2 font-light">{art.product_id}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.type}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.name}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.prix}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.dimensions}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.support}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.technic}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.image_url}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.status}</th>
+                            <th className="border-solid border-black border-2 font-light">{art.slug}</th>
+                        </tr>
+
+                    ))}
+                </tbody>
+            </table>
+            <AddAProduct />
+        </div >
     );
 }
 

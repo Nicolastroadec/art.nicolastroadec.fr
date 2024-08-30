@@ -43,7 +43,7 @@ export default function NavBar() {
 
     return (<div className="w-full flex justify-center pt-5 pb-5 fixed top-0 bg-white z-20 shadow-md">
         <div className="w-1/2 flex justify-around"> {links.map(link => {
-            return (<Link className="text-black" href={link.url} key={link.name}>{link.name !== "Panier" ? link.name : ''}
+            return (<Link className="text-black flex" href={link.url} key={link.name}>{link.name !== "Panier" ? link.name : ''}
                 {link.name === 'Panier' && <CartIcon cart={cart} />}
             </Link>)
         })}</div>
