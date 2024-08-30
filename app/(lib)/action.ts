@@ -42,7 +42,6 @@ export async function addProduct(formData: FormData) {
         VALUES (${id}, ${type}, ${name}, ${prix}, ${dimensions}, ${support}, ${technic}, ${imageUrl}, ${status}, ${slug})`;
 
         revalidatePath('/backoffice');
-        redirect('/backoffice');
     } catch (error) {
         console.error('Error in function add product : ', error);
         return error;
