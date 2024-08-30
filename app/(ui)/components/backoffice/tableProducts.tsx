@@ -12,15 +12,17 @@ export default function TableProducts({ artItemsCopy }: ArtItemsCopy) {
     const formComp = useRef<HTMLFormElement>(null);
     const [productIdToDelete, setProductIdToDelete] = useState('');
 
+    function handleClickOnDelete(product_id: string) {
+        setProductIdToDelete(product_id);
+    }
+
     useEffect(() => {
         if (productIdToDelete) {
             formComp.current?.requestSubmit();
         }
     }, [productIdToDelete]);
 
-    function handleClickOnDelete(product_id: string) {
-        setProductIdToDelete(product_id);
-    }
+
     return (
         <>
             <table>

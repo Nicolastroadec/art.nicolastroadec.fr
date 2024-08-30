@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcrypt';
 import { z } from 'zod';
+import { parse } from "path";
 export type User = {
     id: string;
     name: string;
@@ -27,6 +28,7 @@ export const { auth, signIn, signOut } = NextAuth({
     providers: [
         Credentials({
             async authorize(credentials) {
+                console.log('CREDENTIALS : ', credentials);
                 const parsedCredentials = z
                     .object({ email: z.string().email(), password: z.string().min(6) })
                     .safeParse(credentials);

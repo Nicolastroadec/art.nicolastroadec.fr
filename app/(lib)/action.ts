@@ -56,7 +56,6 @@ export async function deleteProduct(formData: FormData) {
         product_id: formData.get('product_id') as string,
     });
 
-
     try {
         sql`DELETE FROM products WHERE product_id=${product_id}`;
         revalidatePath('/backoffice');
@@ -71,7 +70,7 @@ export async function authenticate(
     formData: FormData,
 ) {
     try {
-        await signIn('credentials', { formData });
+        await signIn('credentials', formData);
     } catch (error) {
         if (error instanceof AuthError) {
             switch (error.type) {
