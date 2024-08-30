@@ -6,9 +6,8 @@ import { z } from 'zod';
 import { v4 as uuidv4 } from 'uuid';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
-// product_id: uuidv4(),
+
 
 const FormSchema = z.object({
     id: z.string() || z.number(),
@@ -48,12 +47,31 @@ export async function addProduct(formData: FormData) {
     }
 }
 
+export async function deleteProduct(formData: FormData) {
+    const formSchema = z.object({
+        product_id: z.string().uuid()
+    })
+
+    const { product_id } = formSchema.parse({
+        product_id: formData.get('product_id') as string,
+    });
+
+
+    try {
+        sql`DELETE FROM products WHERE product_id=${product_id}`;
+        revalidatePath('/backoffice');
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
 export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
 ) {
     try {
-        await signIn('credentials', formData);
+        await signIn('credentials', { formData });
     } catch (error) {
         if (error instanceof AuthError) {
             switch (error.type) {
