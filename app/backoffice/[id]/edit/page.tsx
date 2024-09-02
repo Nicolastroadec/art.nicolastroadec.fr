@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from 'react';
 export default function EditAProduct() {
     const params = useParams();
     const id: string = String(params.id);
-    const [imageUrl, setImageUrl] = useState(undefined);
+    const [imageUrl, setImageUrl] = useState<string>('');
     const [product, setProduct] = useState<Product>({
         product_id: '',
         name: '',
@@ -27,7 +27,6 @@ export default function EditAProduct() {
             try {
                 const productData = await getProduct(id);
                 setProduct(productData);
-                console.log(productData);
                 setImageUrl(productData.image_url);
             } catch (err: any) {
                 console.error('Error fetching product: ', err);
