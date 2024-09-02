@@ -1,30 +1,22 @@
 'use client';
-import { useState, useRef } from 'react';
+
+import React from 'react';
+import Product from '../../../(models)/Product';
+import { updateProduct } from '../../../(lib)/action';
 import { CldUploadWidget } from 'next-cloudinary';
-import { addProduct } from '@lib/action';
-
-export default function AddAProduct() {
-    const [imageUrl, setImageURL] = useState(undefined);
-    const uploadWidgetRef = useRef<HTMLButtonElement>(null);
-
-    const handleUploadSuccess = (result: any) => {
-        if (result.info && result.info.secure_url) {
-            setImageURL(result.info.secure_url);
-        }
-    }
-
-    const triggerUpload = (e: React.MouseEvent) => {
-        e.preventDefault(); 
-        if (uploadWidgetRef.current) {
-            uploadWidgetRef.current.click();
-        }
-    };
+interface ProductData {
+    product: Product
+}
+export default function FormEditAProduct({ product }: ProductData) {
+    let uploadWidgetRef = () => { };
+    let handleUploadSuccess = () => { };
+    let triggerUpload = () => { };
+    let imageUrl = '';
 
     return (
         <>
-            <h2>Ajouter une oeuvre</h2>
-            <form className="w-fit flex flex-col" action={addProduct}>
-                <label className="font-bold mt-2 mb-2" htmlFor="name">Nom de l{"'"}oeuvre</label>
+            <form className="w-fit flex flex-col" action={updateProduct}>
+                <label className="font-bold mt-2 mb-2" htmlFor="name">Nom de l'oeuvre</label>
                 <input className="border-2 border-solid border-black" type="text" id="name" name="name" />
                 <label className="font-bold mt-2 mb-2" htmlFor="type">Type d'oeuvre</label>
                 <select className="border-solid border-black border-2 rounded-xl" name="type" id="type">
@@ -64,7 +56,6 @@ export default function AddAProduct() {
                     : null}
                 <button className="w-fit bg-black text-white rounded-xl py-2 px-4 hover:bg-gray-800 mt-2" type="submit">Ajouter l'oeuvre à la base de données</button>
             </form>
-
             <CldUploadWidget onSuccess={handleUploadSuccess}
                 uploadPreset="ml_default">
                 {({ open }) => {

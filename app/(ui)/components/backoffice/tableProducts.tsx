@@ -2,66 +2,67 @@
 
 import Product from '@models/Product';
 import { deleteProduct } from '@lib/action';
+import { TrashIcon, PencilIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link';
 
-import { useState, useRef, useEffect } from 'react';
 
 interface ArtItemsCopy {
     artItemsCopy: Product[]
 }
 export default function TableProducts({ artItemsCopy }: ArtItemsCopy) {
-    const formComp = useRef<HTMLFormElement>(null);
-    const [productIdToDelete, setProductIdToDelete] = useState('');
-
-    function handleClickOnDelete(product_id: string) {
-        setProductIdToDelete(product_id);
+    async function handleClickOnDelete(product_id: string) {
+        try {
+            await deleteProduct(product_id);
+        } catch (error) {
+            console.error('Erreur lors de la suppression du produit :', error);
+        }
     }
 
-    useEffect(() => {
-        if (productIdToDelete) {
-            formComp.current?.requestSubmit();
-        }
-    }, [productIdToDelete]);
-
-
+    const classCellsThead = "border-solid border-2 border-black bg-black text-white px-4 py-4";
+    const classCellsTbody = "border-solid border-black border-2 font-light";
     return (
         <>
             <table>
                 <thead>
                     <tr>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">ID du produit</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Type</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Nom de l'oeuvre</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Prix</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Dimensions</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Support</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Technique</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">URL de l'image</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Statut</th>
-                        <th className="border-solid border-2 border-black bg-black text-white px-4 py-4">Slug</th>
+                        <th className={classCellsThead}>ID du produit</th>
+                        <th className={classCellsThead}>Type</th>
+                        <th className={classCellsThead}>Nom de l'oeuvre</th>
+                        <th className={classCellsThead}>Prix</th>
+                        <th className={classCellsThead}>Dimensions</th>
+                        <th className={classCellsThead}>Support</th>
+                        <th className={classCellsThead}>Technique</th>
+                        <th className={classCellsThead}>URL de l'image</th>
+                        <th className={classCellsThead}>Statut</th>
+                        <th className={classCellsThead}>Slug</th>
                     </tr>
                 </thead>
                 <tbody>
                     {artItemsCopy.map(art => (
                         <tr key={art.product_id}>
-                            <th className="border-solid border-black border-2 font-light">{art.product_id}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.type}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.name}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.prix}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.dimensions}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.support}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.technic}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.image_url}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.status}</th>
-                            <th className="border-solid border-black border-2 font-light">{art.slug}</th>
-                            <th onClick={() => { handleClickOnDelete(String(art.product_id)) }} className="border-solid border-black border-2 font-light text-red text-bold hover:cursor-pointer">Delete product</th>
+                            <th className={classCellsTbody}>{art.product_id}</th>
+                            <th className={classCellsTbody}>{art.type}</th>
+                            <th className={classCellsTbody}>{art.name}</th>
+                            <th className={classCellsTbody}>{art.prix}</th>
+                            <th className={classCellsTbody}>{art.dimensions}</th>
+                            <th className={classCellsTbody}>{art.support}</th>
+                            <th className={classCellsTbody}>{art.technic}</th>
+                            <th className={classCellsTbody}>{art.image_url}</th>
+                            <th className={classCellsTbody}>{art.status}</th>
+                            <th className={classCellsTbody}>{art.slug}</th>
+                            <th className={classCellsTbody}>
+                                <Link href={`/backoffice/${art.product_id}/edit`}>
+                                    <PencilIcon className="size-6 text-blue-300 hover:cursor-pointer hover:text-blue-600" />
+                                </Link>
+                            </th>
+                            <th onClick={() => { handleClickOnDelete(String(art.product_id)) }}
+                                className={classCellsTbody}>
+                                <TrashIcon className="size-6 text-red-300 hover:cursor-pointer hover:text-red-600" />
+                            </th>
                         </tr>
-
                     ))}
                 </tbody>
             </table>
-            <form ref={formComp} action={deleteProduct}>
-                <input readOnly value={productIdToDelete} name="product_id" id="product_id" />
-            </form>
         </>
     )
 }
