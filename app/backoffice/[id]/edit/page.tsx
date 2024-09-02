@@ -5,7 +5,6 @@ import { CldUploadWidget } from 'next-cloudinary';
 import { useParams } from 'next/navigation';
 import Product from '@models/Product'
 import { useEffect, useState, useRef } from 'react';
-import Image from 'next/image';
 export default function page() {
     const params = useParams();
     const id: string = String(params.id);
