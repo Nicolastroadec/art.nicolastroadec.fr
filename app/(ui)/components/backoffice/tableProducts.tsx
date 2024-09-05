@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import Product from '@models/Product';
 import { deleteProduct } from '@lib/action';
 import { TrashIcon, PencilIcon } from '@heroicons/react/24/solid'
@@ -18,8 +18,8 @@ export default function TableProducts({ artItemsCopy }: ArtItemsCopy) {
         }
     }
 
-    const classCellsThead = "border-solid border-2 border-black bg-black text-white px-4 py-4";
-    const classCellsTbody = "border-solid border-black border-2 font-light";
+    const classCellsThead = "text-xs border-solid border-2 border-black bg-black text-white px-4 py-4";
+    const classCellsTbody = "text-xs border-solid border-black border-2 font-light";
     return (
         <>
             <table>

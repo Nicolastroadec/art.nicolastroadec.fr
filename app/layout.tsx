@@ -6,6 +6,7 @@ import { CartProvider } from '@context/CartContext'
 
 import Navbar from '@components/Navbar';
 import { signOut } from '../auth';
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 

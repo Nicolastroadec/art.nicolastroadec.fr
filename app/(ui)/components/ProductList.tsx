@@ -12,7 +12,7 @@ export default async function ProductList() {
     return (
         <div className="flex flex-wrap justify-center">
             {
-                products.map((product: Product) => (
+                products.slice().reverse().map((product: Product) => (
                     <ProductCard key={product.product_id} product={product} />
                 ))
             }

@@ -57,7 +57,6 @@ export async function checkProductAvailability(id: string | number): Promise<str
     try {
         const data = await sql`SELECT status FROM products WHERE product_id = ${id}`;
         const result = data.rows[0].status;
-        console.log(result);
         return result;
     } catch (err: any) {
         console.error("Error in function check product availability : ", err);

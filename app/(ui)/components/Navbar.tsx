@@ -6,7 +6,6 @@ import cartProvider from "@context/CartContext";
 
 
 export default function NavBar() {
-
     const cart = cartProvider();
 
     interface Links {
