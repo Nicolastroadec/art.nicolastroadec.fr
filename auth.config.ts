@@ -7,11 +7,10 @@ export const authConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isOnBackoffice = nextUrl.pathname.startsWith('/backoffice');
-            if (isOnBackoffice) {
-                return isLoggedIn;
-            } else if (isLoggedIn) {
-                console.log('LOGGED IN');
+            const isOnLoginPage = nextUrl.pathname.startsWith('/login');
+
+
+            if (isLoggedIn && isOnLoginPage) {
                 return Response.redirect(new URL('/backoffice', nextUrl));
             }
             return true;

@@ -93,38 +93,41 @@ export default function FormProduct({ action }: FormEditProps) {
         }));
     }
 
+    const classNameInput = "border-2 border-solid border-black w-full";
+    const classNameSelect = "border-2 border-solid border-black rounded-xl w-full";
+
     return (
         <>
-            <form className="w-fit flex flex-col" action={actionForm}>
+            <form className="w-1/2 flex flex-col items-center justify-center m-auto" action={actionForm}>
                 <label className="font-bold mt-2 mb-2" htmlFor="name">Nom de l'oeuvre</label>
-                <input onChange={handleChange} className="border-2 border-solid border-black" type="text" id="name" name="name" value={product?.name ?? ''} />
+                <input onChange={handleChange} className={classNameInput} type="text" id="name" name="name" value={product?.name ?? ''} />
                 <label className="font-bold mt-2 mb-2" htmlFor="type">Type d'oeuvre</label>
-                <select onChange={handleChange} className="border-solid border-black border-2 rounded-xl" name="type" id="type" value={product?.type ?? ''}>
+                <select onChange={handleChange} className={classNameSelect} name="type" id="type" value={product?.type ?? ''}>
                     <option value="painting">Peinture</option>
                     <option value="drawing">Dessin</option>
                 </select>
                 <label className="font-bold mt-2 mb-2" htmlFor="prix">Prix</label>
-                <input onChange={handleChange} className="border-2 border-solid border-black" type="number" id="prix" name="prix" value={product?.prix ?? ''} />
+                <input onChange={handleChange} className={classNameInput} type="number" id="prix" name="prix" value={product?.prix ?? ''} />
                 <label className="font-bold mt-2 mb-2" htmlFor="dimensions">Dimensions</label>
-                <input onChange={handleChange} className="border-2 border-solid border-black" type="text" id="dimensions" name="dimensions" value={product?.dimensions ?? ''} />
+                <input onChange={handleChange} className={classNameInput} type="text" id="dimensions" name="dimensions" value={product?.dimensions ?? ''} />
                 <label className="font-bold mt-2 mb-2" htmlFor="support">Support</label>
-                <select onChange={handleChange} className="border-solid border-black border-2 rounded-xl" name="support" id="support" value={product?.support ?? ''}>
+                <select onChange={handleChange} className={classNameSelect} name="support" id="support" value={product?.support ?? ''}>
                     <option value="paper">Papier</option>
                     <option value="canva">Canva</option>
                 </select>
                 <label className="font-bold mt-2 mb-2" htmlFor="technic">Technique</label>
-                <select onChange={handleChange} className="border-solid border-black border-2 rounded-xl" name="technic" id="technic" value={product?.technic ?? ''}>
+                <select onChange={handleChange} className={classNameSelect} name="technic" id="technic" value={product?.technic ?? ''}>
                     <option value="pencil">Crayon</option>
                     <option value="watercolor">Aquarelle</option>
                     <option value="gouache">Gouache</option>
                 </select>
                 <label className="font-bold mt-2 mb-2" htmlFor="status">Statut</label>
-                <select onChange={handleChange} className="border-solid border-black border-2 rounded-xl" name="status" id="status" value={product?.status ?? ''}>
+                <select onChange={handleChange} className={classNameSelect} name="status" id="status" value={product?.status ?? ''}>
                     <option value="sold">Vendu</option>
                     <option value="available">Disponible</option>
                 </select>
                 <label className="font-bold mt-2 mb-2" htmlFor="slug">Slug</label>
-                <input onChange={handleChange} className="border-2 border-solid border-black" type="text" id="slug" name="slug" value={product?.slug ?? ''} />
+                <input onChange={handleChange} className={classNameInput} type="text" id="slug" name="slug" value={product?.slug ?? ''} />
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-fit mb-2 mt-2" onClick={triggerUpload}>Modifier l'image</button>
 
                 {imageUrl ?

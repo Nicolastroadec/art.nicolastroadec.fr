@@ -6,6 +6,8 @@ import TableProducts from '@components/backoffice/TableProducts';
 export default async function page() {
     let artItems: Product[] = [];
     let artItemsCopy: Product[] = [];
+
+
     try {
         artItems = await getProducts();
         artItemsCopy = artItems.map(art => ({ ...art }));

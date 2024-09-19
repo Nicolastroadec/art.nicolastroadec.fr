@@ -2,9 +2,10 @@
 import Product from '@models/Product';
 import Cookies from 'js-cookie';
 import { checkProductAvailability } from '@lib/get-data';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import useCart from "@context/CartContext";
 import { CartProvider } from '@context/CartContext';
+import productReducer from '@lib/reducer';
 
 
 interface ProductProps {
@@ -16,24 +17,34 @@ export default function ProductUI({ productData }: ProductProps) {
     const [productInCart, setProductInCart] = useState(false);
     const { addItemToCart, cart } = useCart();
 
-    async function handleClick(id: string | number) {
-        const availability = await checkProductAvailability(id);
-        if (availability === "available" && !productInCart) {
-            const cookieName = 'cart';
-            const cookieValue = Cookies.get(cookieName);
-            let cart = cookieValue ? JSON.parse(cookieValue) : [];
-            setProductInCart(true);
-            cart.push({
-                item: product_id
-            });
-            Cookies.set('cart', JSON.stringify(cart), { expires: 7 });
+    /*     async function handleClick(id: string | number) {
+            const availability = await checkProductAvailability(id);
+            if (availability === "available" && !productInCart) {
+                const cookieName = 'cart';
+                const cookieValue = Cookies.get(cookieName);
+                let cart = cookieValue ? JSON.parse(cookieValue) : [];
+                setProductInCart(true);
+                cart.push({
+                    item: product_id
+                });
+                Cookies.set('cart', JSON.stringify(cart), { expires: 7 });
+    
+                addItemToCart({ item: product_id });
+                const cookieStored = Cookies.get(cookieName);
+                const cookieStoredParsed = cookieStored ? JSON.parse(cookieStored) : 'No cookie found';
+            }
+    
+        } */
+    const [products, dispatch] = useReducer(productReducer, []);
 
-            addItemToCart({ item: product_id });
-            const cookieStored = Cookies.get(cookieName);
-            const cookieStoredParsed = cookieStored ? JSON.parse(cookieStored) : 'No cookie found';
-        }
-
+    function handleAddProduct(product_id: string | number) {
+        dispatch({
+            type: 'added',
+            id: product_id,
+        })
     }
+
+
     return (
         <div className="p-10 w-1/3 flex flex-col justify-between">
             <div>
@@ -44,7 +55,7 @@ export default function ProductUI({ productData }: ProductProps) {
                 <p className="text-black"><strong>Technique utilisée :</strong> {technic}</p>
             </div>
 
-            <button className={`text-white  rounded p-4 flex justify-center align-center text-center ${productInCart ? "bg-black hover:bg-black opacity-50 cursor-default" : "bg-black hover:bg-gray-700"}`} onClick={() => { handleClick(product_id) }}>{productInCart ? "Ce produit est dans votre panier" : "Ajouter au panier"}</button>
+            <button className={`text-white  rounded p-4 flex justify-center align-center text-center ${productInCart ? "bg-black hover:bg-black opacity-50 cursor-default" : "bg-black hover:bg-gray-700"}`} onClick={() => { handleAddProduct(product_id) }}>{productInCart ? "Ce produit est dans votre panier" : "Ajouter au panier"}</button>
         </div>
     )
 }
