@@ -2,8 +2,7 @@
 import Product from '@models/Product';
 import Cookies from 'js-cookie';
 import { checkProductAvailability } from '@lib/get-data';
-import { useState, useEffect, useReducer, useContext } from 'react';
-import productReducer from '@lib/reducer';
+import { useState, useEffect, useContext } from 'react';
 
 import { CartContext } from '@context/context';
 interface ProductProps {
@@ -32,7 +31,6 @@ export default function ProductUI({ productData }: ProductProps) {
             }
     
         } */
-    const [products, dispatch] = useReducer(productReducer, []);
 
     const { addToCart, cart } = useContext(CartContext);
 
