@@ -2,12 +2,10 @@
 import Product from '@models/Product';
 import Cookies from 'js-cookie';
 import { checkProductAvailability } from '@lib/get-data';
-import { useState, useEffect, useReducer } from 'react';
-import useCart from "@context/CartContext";
-import { CartProvider } from '@context/CartContext';
+import { useState, useEffect, useReducer, useContext } from 'react';
 import productReducer from '@lib/reducer';
 
-
+import { CartContext } from '@context/context';
 interface ProductProps {
     productData: Product
 }
@@ -15,7 +13,6 @@ interface ProductProps {
 export default function ProductUI({ productData }: ProductProps) {
     const { name, image_url, prix, dimensions, support, technic, product_id } = productData;
     const [productInCart, setProductInCart] = useState(false);
-    const { addItemToCart, cart } = useCart();
 
     /*     async function handleClick(id: string | number) {
             const availability = await checkProductAvailability(id);
@@ -37,11 +34,15 @@ export default function ProductUI({ productData }: ProductProps) {
         } */
     const [products, dispatch] = useReducer(productReducer, []);
 
+    const { addToCart, cart } = useContext(CartContext);
+
+    useEffect(() => {
+
+        console.log(cart)
+    }, [cart])
+
     function handleAddProduct(product_id: string | number) {
-        dispatch({
-            type: 'added',
-            id: product_id,
-        })
+        addToCart(product_id)
     }
 
 
@@ -54,7 +55,6 @@ export default function ProductUI({ productData }: ProductProps) {
                 <p className="text-black"><strong>Support :</strong> {support}</p>
                 <p className="text-black"><strong>Technique utilisée :</strong> {technic}</p>
             </div>
-
             <button className={`text-white  rounded p-4 flex justify-center align-center text-center ${productInCart ? "bg-black hover:bg-black opacity-50 cursor-default" : "bg-black hover:bg-gray-700"}`} onClick={() => { handleAddProduct(product_id) }}>{productInCart ? "Ce produit est dans votre panier" : "Ajouter au panier"}</button>
         </div>
     )

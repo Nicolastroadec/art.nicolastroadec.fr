@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from '@context/CartContext'
 import Navbar from '@components/Navbar';
 import { SessionProvider } from "next-auth/react"
 import { auth } from "../auth"
+import { CartContextProvider } from "@context/context";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,16 +20,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth()
+
+
   return (
     <html lang="en" className="bg-white">
       <SessionProvider>
-        <body className={inter.className + " bg-white"}>
-          <CartProvider>
+        <CartContextProvider>
+          <body className={inter.className + " bg-white"}>
             <Navbar sessionProp={session} />
             <div className="mt-20  w-[80%] m-auto">{children}</div>
-          </CartProvider>
-        </body>
+          </body>
+        </CartContextProvider>
       </SessionProvider>
+
     </html>
   );
 }

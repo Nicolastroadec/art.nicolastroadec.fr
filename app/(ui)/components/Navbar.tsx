@@ -3,21 +3,20 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import CartIcon from '@components/CartIcon';
-import cartProvider from "@context/CartContext";
 import SignOutButton from './SignOut';
 import { useSession } from 'next-auth/react';
-
+import { useContext } from 'react';
+import { CartContext } from '@context/context';
 
 export default function NavBar({ sessionProp }: any) {
     const { data: session, status } = useSession();
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    const { cart } = useContext(CartContext);
+
+
     useEffect(() => {
-
-        console.log('status: ', status);
-        console.log('sessionprop: ', sessionProp?.user?.name);
-
 
         if (status === 'unauthenticated' && sessionProp?.user?.name !== undefined) {
             setIsAuthenticated(false);
@@ -32,7 +31,6 @@ export default function NavBar({ sessionProp }: any) {
 
 
 
-    const cart = cartProvider();
     interface Links {
         name: string;
         url: string;
@@ -75,7 +73,6 @@ export default function NavBar({ sessionProp }: any) {
             })}
                 {isAuthenticated ? <SignOutButton /> : null}
             </div>
-
 
         </div>)
 }
