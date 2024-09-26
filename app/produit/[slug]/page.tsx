@@ -2,7 +2,6 @@ import { getProduct } from '@lib/get-data';
 import Image from 'next/image';
 import Product from '@models/Product';
 import ProductUI from '@components/productUI';
-import { CartProvider } from '@context/CartContext'
 
 export default async function page({ params }: { params: { slug: string } }) {
     const slug = params.slug;
