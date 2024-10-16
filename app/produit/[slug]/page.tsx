@@ -11,7 +11,7 @@ export default async function page({ params }: { params: { slug: string } }) {
 
     return (
         <div className="flex bg-white">
-            <Image className="w-2/3" src={image_url} alt={name} width={600} height={600} />
+            <Image className="w-1/3 m-h-[600px]" src={image_url} alt={name} width={600} height={600} />
             <ProductUI productData={productData} />
         </div>
     );

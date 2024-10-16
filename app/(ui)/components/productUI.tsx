@@ -10,37 +10,17 @@ interface ProductProps {
 }
 
 export default function ProductUI({ productData }: ProductProps) {
-    const { name, image_url, prix, dimensions, support, technic, product_id } = productData;
+    const { name, prix, dimensions, support, technic, product_id } = productData;
     const [productInCart, setProductInCart] = useState(false);
 
-    /*     async function handleClick(id: string | number) {
-            const availability = await checkProductAvailability(id);
-            if (availability === "available" && !productInCart) {
-                const cookieName = 'cart';
-                const cookieValue = Cookies.get(cookieName);
-                let cart = cookieValue ? JSON.parse(cookieValue) : [];
-                setProductInCart(true);
-                cart.push({
-                    item: product_id
-                });
-                Cookies.set('cart', JSON.stringify(cart), { expires: 7 });
-    
-                addItemToCart({ item: product_id });
-                const cookieStored = Cookies.get(cookieName);
-                const cookieStoredParsed = cookieStored ? JSON.parse(cookieStored) : 'No cookie found';
-            }
-    
-        } */
-
-    const { addToCart, cart } = useContext(CartContext);
+    const { addToCart, checkIfInCart } = useContext(CartContext);
 
     useEffect(() => {
+        setProductInCart(checkIfInCart(product_id))
+    }, [product_id, checkIfInCart])
 
-        console.log(cart)
-    }, [cart])
-
-    function handleAddProduct(product_id: string | number) {
-        addToCart(product_id)
+    async function handleAddProduct(product_id: string | number) {
+        addToCart(product_id).then(() => setProductInCart(true));
     }
 
 
